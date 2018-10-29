@@ -3,33 +3,37 @@
  */
 const dotenv = require('dotenv');
 const inquirer = require('inquirer');
-const request = require('request-promise-native');
 const chalk = require('chalk');
 
 const createRule = require('./api/create-rule.js');
 const linkEpic = require('./api/link-epic.js');
-const loginPrompts = require('./prompts/login.js');
+const againPrompt = require('./prompts/again.js');
 const rulePrompts = require('./prompts/rules.js');
-const constants = require('./constants.js');
+const utils = require('./utils.js');
 
 dotenv.config();
+utils.validateEnv();
 
 
-const newRule = (login) => inquirer
+let createdIssueUrls = [];
+
+const newRule = () => inquirer
     .prompt(rulePrompts)
-    .then(answers => createRule(login, answers))
-    .then(response => linkEpic(login, response.key))
+    .then(answers => createRule(answers))
+    .then(response => linkEpic(response.key))
     .then(url => {
+        createdIssueUrls = createdIssueUrls.concat([url]);
         const green = chalk.green('\n🎉 Successfully created issue in Jira!');
-        const blue = chalk.blue(`\n  🔗  ${url}`);
+        const blue = chalk.blue(`\n🔗  ${url}\n`);
         console.log(`${green}${blue}`);
+        return inquirer.prompt(againPrompt);
     })
+    .then(shouldRun => shouldRun.again
+            ? newRule()
+            : utils.showCreatedIssues(createdIssueUrls)
+    )
     .catch((error) => onsole.warn(
         chalk.red('Something has gone catastrophically wrong.\nThrow your machine out the window.', error)
-    ))
+    ));
 
-const main = () => inquirer
-    .prompt(loginPrompts)
-    .then(answers => newRule(answers));
-
-main();
+newRule()

@@ -1,11 +1,10 @@
-const request = require('request-promise-native');
-
 const constants = require('../constants.js');
 const utils = require('../utils.js');
 
 
-const createRule = (login, rule) => {
-    const body = {
+const createRule = (rule) => utils.postRequest({
+    uri: constants.CREATE_ISSUE_ENDPOINT,
+    body: {
         fields: {
             project: {
                 id: process.env.FE_PROJECT_ID
@@ -28,17 +27,7 @@ Process:
 * If the rule is not auto-fixable, then you must go through each of the files reported in the terminal and fix them.
 * Commit the updated \`.eslintrc\` along with any fixed file changes.`
         }
-    };
-    return request({
-        method: 'POST',
-        uri: constants.CREATE_ISSUE_ENDPOINT,
-        body: body,
-        json: true,
-        headers: {
-            'Authorization': utils.getAuthHeader(login.email),
-            'Content-Type': 'application/json'
-        }
-    });
-};
+    },
+});
 
 module.exports = createRule;
