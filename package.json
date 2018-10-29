@@ -1,0 +1,17 @@
+{
+  "name": "7g-scripts",
+  "version": "1.0.0",
+  "description": "💎 A set of tools and scripts to improve developer velocity for the 7Geese engineering team.",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 8.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himynameisdave/7g-scripts.git"
+  },
+  "author": "himynameisdave <d@velunny.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/himynameisdave/7g-scripts#readme",
+  "private": true
+}

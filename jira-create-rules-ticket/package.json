@@ -1,0 +1,25 @@
+{
+  "name": "7g-scripts--jira-create-rules-ticket",
+  "version": "1.0.0",
+  "description": "A script for Dave to quickly create ESLint rule tickets on Jira",
+  "main": "src/index.js",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 8.11.1"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "dotenv": "6.1.0",
+    "inquirer": "6.2.0",
+    "js-base64": "^2.4.9",
+    "request": "^2.88.0",
+    "request-promise-native": "1.0.5"
+  },
+  "author": "himynameisdave <d@velunny.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/himynameisdave/7g-scripts#readme"
+}
