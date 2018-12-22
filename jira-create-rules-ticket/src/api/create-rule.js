@@ -1,5 +1,6 @@
 const constants = require('../constants.js');
 const utils = require('../utils.js');
+const getIssueTemplate = require('../issue-template.js');
 
 
 const createRule = (rule) => utils.postRequest({
@@ -14,18 +15,7 @@ const createRule = (rule) => utils.postRequest({
             },
             labels: ['eslint'],
             summary: `ESLint Rule: ${rule.name}`,
-            description: `Turn on the eslint rule ${rule.name}.
-${rule.url}
-
-Reason: ${rule.reason}
-
-====
-Process:
-* In the \`.eslintrc\` file, remove the line where \`${rule.name}\` is turned "off" (because it will already be set to "error" in our eslint-config-7geese). 
-* Run \`yarn run lint:fix\`.
-* If the issue is auto-fixable, the issues will be fixed for you.
-* If the rule is not auto-fixable, then you must go through each of the files reported in the terminal and fix them.
-* Commit the updated \`.eslintrc\` along with any fixed file changes.`
+            description: getIssueTemplate(rule),
         }
     },
 });

@@ -14,4 +14,9 @@ module.exports = [
         name: 'reason',
         message: 'Enter the reason we are turning this rule on',
     },
+    {
+        type: 'confirm',
+        name: 'isFixable',
+        message: 'Is this rule auto-fixable?',
+    },
 ];
